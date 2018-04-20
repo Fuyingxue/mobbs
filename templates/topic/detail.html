@@ -43,7 +43,7 @@
             <div class='inner topic'>
                 <div class='topic_content'>
                     <div class="markdown-text">
-                        <p>{{ topic.content }}</p>
+                        <p id='id-topic-text-{{topic.id}}' class='p-topic-text' data-key='{{topic.id}}'>{{ topic.content }}</p>
                     </div>
                 </div>
             </div>
@@ -82,7 +82,7 @@
         </div>
         {% endfor %}
     </div>
-    
+
         <div class='panel'>
             <div class='header'>
                 <span class='col_fade'>添加回复</span>
@@ -109,15 +109,27 @@
 </div>
 
 <script>
-    (function () {
-        var editor = new Editor();
-        editor.render($('.editor')[0]);
-    })();
+    var log = console.log.bind(console)
+    var e = (sel) => document.querySelector(sel)
+    var es = (sel) => document.querySelectorAll(sel)
 
-    (function () {
-        var log = console.log.bind(console)
-        var e = (sel) => document.querySelector(sel)
-        var es = (sel) => document.querySelectorAll(sel)
+    var pylpMd = function() {
+        var editor = new Editor()
+        editor.render(e('.editor')[0])
+    }
+
+    var topicMd = function() {
+        var a = e('.p-topic-text')
+        var tContent = []
+        var k = a.dataset.key
+        tContent.push(k)
+        var v = a.innerHTML
+        tContent.push(v)
+        var t = 'id-topic-text-' + k
+        document.getElementById(t).innerHTML = marked(v)
+    }
+
+    var repliesMd = function() {
         var a = es('.p-text')
         var listContent = []
         for(let i = 0; i < a.length; i++) {
@@ -135,8 +147,13 @@
             var t = 'id-editor-text-' + a[0]
             document.getElementById(t).innerHTML = marked(a[1])
         }
+    }
 
-    })()
+
+    repliesMd()
+    topicMd()
+    pylpMd()
+
 
 </script>
 
