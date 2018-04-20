@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}
+    mail.admin
+{% endblock %}
+
+{% block content %}
+<p>收件人id： {{ mail.receiver_id }}</p>
+<p>发件人id： {{ mail.sender_id }}</p>
+<p>内容: {{ mail.content }}</p>
+{% endblock %}

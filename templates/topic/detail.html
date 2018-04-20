@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}
+    topic
+{% endblock %}
+
+{% block content %}
+<div id="main">
+
+    <div id="sidebar">
+        <div class="panel">
+            <div class="inner">
+                <a href="/py/topic/new" class="create_topic_btn">
+                    <span class="span-success">发布话题</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="content">
+        <div class='panel'>
+            <div class='header topic_header'>
+                <span class="topic_full_title">
+                    {{ topic.title }}
+                </span>
+                <div class="changes">
+                    <span>
+                        {{ topic.ct() }}
+                    </span>
+                    <span>
+                        作者
+                        {{ topic.user().username }}
+                    </span>
+                    <span>
+                        {{ topic.views }} 次浏览
+                    </span>
+                    <span>
+                        板块From： {{ topic.board().title }}
+                    </span>
+                </div>
+            </div>
+
+            <div class='inner topic'>
+                <div class='topic_content'>
+                    <div class="markdown-text">
+                        <p>{{ topic.content }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class='panel'>
+        <div class='header'>
+            <span class='col_fade'>
+                <!-- 过滤器 -->
+                {{ topic.replies() | count }} 回复
+            </span>
+        </div>
+        {% for r in topic.replies() %}
+        <div class='cell reply_area reply_item'>
+            <div class='author_content'>
+                <a class="user_avatar">
+                    <img src={{ '/py/uploads/' + r.user().user_image + '?v=3&amp;s=120' }}title="atian25"
+                    title="{{ r.user().username }}"/>
+                </a>
+                <div class='user_info'>
+                    <a class='dark reply_author'>
+                        {{ r.user().username }}
+                    </a>
+                    <a class="reply_time">
+                        {{ loop.index }}楼 • {{ r.ct() }}
+                    </a>
+                </div>
+            </div>
+
+            <div class='reply_content'>
+                <div class="markdown-text">
+                <p>{{ r.content }}</p>
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+
+
+        <div class='panel'>
+            <div class='header'>
+                <span class='col_fade'>添加回复</span>
+            </div>
+
+            <div class='inner reply'>
+                <form id='reply_form' action="{{ url_for('reply.add') }}" method='post'>
+                    <div class='markdown_editor in_editor'>
+                        <div class='markdown_in_editor'>
+                            <textarea class='editor' name='content'></textarea>
+                            <div class='editor_buttons'>
+                                <input class='span-primary submit_btn' type="submit" data-loading-text="回复中.."
+                                       value="回复">
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="topic_id" value="{{ topic.id }}">
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    (function () {
+        var editor = new Editor();
+        editor.render($('.editor')[0]);
+    })();
+
+</script>
+
+{% endblock %}

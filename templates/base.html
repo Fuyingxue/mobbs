@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/lib/editor/editor.css">
+    <link rel="stylesheet" href="/static/lib/webuploader/webuploader.css">
+    {% block css %} {% endblock %}
+    <script src="/static/lib/jquery-3.0.0.min.js"></script>
+    <script src="/static/lib/markdownit.js"></script>
+    <script src="/static/lib/webuploader/webuploader.withoutimage.js"></script>
+    <script src="/static/lib/editor/editor.js"></script>
+    <script src="/static/lib/editor/ext.js"></script>
+    {% block script %} {% endblock %}
+    <style>
+        header {
+            background: #0f88eb;
+        }
+
+        a.gua-header-item {
+            display: inline-block;
+            color: white;
+            padding: 25px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        a.gua-header-item1 {
+            display: inline-block;
+            color: white;
+            padding: 25px;
+            float: right;
+            text-decoration: none;
+        }
+
+        .gua-header-item:hover {
+            background-color: white;
+            color: black;
+            /* 鼠标指针变为链接手 */
+            cursor: pointer;
+        }
+        /* 底部 */
+
+        footer {
+            background: white;
+            text-align: center;
+            position: fixed;
+            bottom: 0px;
+            width: 100%;
+            border-top: 1px solid lightgray;
+        }
+    </style>
+</head>
+<body>
+    <div class="bbs-top">
+        <header class="bbs-menu">
+            <a class="gua-header-item" href="{{ url_for('topic.index') }}">首页</a>
+            <a class="gua-header-item" href="{{ url_for('index.inlog') }}">登录/注册</a>
+            <a class="gua-header-item" href="{{ url_for('index.logout') }}">退出</a>
+            <a class="gua-header-item1" href="/py/profile">用户</a>
+            <a class="gua-header-item1" href="/py/mail">私信</a>
+        </header>
+    </div>
+
+    <div class="bbs-main">
+
+        <div class="content">
+            {% block content %} {% endblock %}
+        </div>
+
+        <div class="sidebar">
+            {% block sidebar %} {% endblock %}
+        </div>
+
+    </div>
+
+
+    <footer>
+        <a href="#">关于</a>
+        <span>&nbsp;·&nbsp;</span>
+        <a href="#">FAQ</a>
+        <span>&nbsp;·&nbsp;</span>
+        <a href="#">鸣谢</a>
+        <span>&nbsp;·&nbsp;</span>
+        World is powered by solitude
+        <span>&nbsp;·&nbsp;</span>
+        Python的个人BBS
+        <br>
+        <a href="#"> pytao.cc</a>
+    </footer>
+
+</body>
+</html>

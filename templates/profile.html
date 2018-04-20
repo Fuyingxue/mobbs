@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+    profile
+{% endblock %}
+
+
+{% block content %}
+    <h3>目前仅支持上传头像</h3>
+    <h2>用户资料页面</h2>
+    <div>
+        用户名:
+        {{ user.username }}
+        <br>
+    </div>
+    <div>
+        用户图片：
+        <br>
+        <a >
+        <img src={{ '/py/uploads/' + user.user_image }} width="200" height="250">
+        </a>
+        <br>
+    </div>
+
+
+    <br>
+    <h2>上传头像</h2>
+    <form method=post action={{ url_for(".add_img") }} enctype=multipart/form-data>
+      <p><input type=file name=file>
+         <input type=submit value=Upload>
+    </form>
+{% endblock %}

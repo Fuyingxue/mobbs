@@ -1,3 +1,11 @@
+.idea
+data
+.idea/*
+data/*
+config.py
+xue.log.txt
+
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
