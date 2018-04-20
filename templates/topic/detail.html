@@ -74,17 +74,15 @@
                 </div>
             </div>
 
-            <div class='reply_content'>
+            <div class=' reply_content'>
                 <div class="markdown-text">
-                <p>{{ r.content }}</p>
+                <p id='id-editor-text-{{r.id}}' class='p-text' data-key='{{r.id}}'>{{ r.content }}</p>
                 </div>
             </div>
-
         </div>
         {% endfor %}
     </div>
-
-
+    
         <div class='panel'>
             <div class='header'>
                 <span class='col_fade'>添加回复</span>
@@ -115,6 +113,30 @@
         var editor = new Editor();
         editor.render($('.editor')[0]);
     })();
+
+    (function () {
+        var log = console.log.bind(console)
+        var e = (sel) => document.querySelector(sel)
+        var es = (sel) => document.querySelectorAll(sel)
+        var a = es('.p-text')
+        var listContent = []
+        for(let i = 0; i < a.length; i++) {
+            var lContent = []
+            var k = a[i].dataset.key
+            lContent.push(k)
+            var v = a[i].innerHTML
+            lContent.push(v)
+            listContent.push(lContent)
+
+        }
+        log('objContent',typeof listContent,listContent)
+        for (var j = 0; j < listContent.length; j++) {
+            let a = listContent[j]
+            var t = 'id-editor-text-' + a[0]
+            document.getElementById(t).innerHTML = marked(a[1])
+        }
+
+    })()
 
 </script>
 
